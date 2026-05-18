@@ -1,6 +1,6 @@
 document.addEventListener("REVIVE_DATA_READY", function () {
 
-  // -----------------------------
+  // ------------------------------
   // SAFETY CHECK
   // -----------------------------
   if (typeof REVIVE_DATA === "undefined") {
