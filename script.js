@@ -1,10 +1,9 @@
 // ------------------------------
   // SAFETY CHECK
   // ------------------------------
-  if (typeof REVIVE_DATA === "undefined") {
-    console.error("❌ REVIVE_DATA not loaded.");
-    return;
-  }
+if (typeof REVIVE_DATA === "undefined") {
+  console.error("❌ REVIVE_DATA not loaded.");
+} else {
 
   console.log("✅ REVIVE_DATA loaded:", REVIVE_DATA);
 
@@ -200,3 +199,4 @@
         "❌ Connection error.";
     }
   });
+}
