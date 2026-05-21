@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Revive Request</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <form id="reviveForm">
+
+    <label>PLAYER</label>
+    <input type="text" name="playerName" required>
+
+    <label>PROFILE LINK</label>
+    <input type="url" name="profileLink" required>
+
+    <label>SECTOR</label>
+    <select id="sector" name="sector" required>
+      <option value="">--</option>
+      <option value="NW">NW</option>
+      <option value="NE">NE</option>
+      <option value="SW">SW</option>
+      <option value="SE">SE</option>
+      <option value="Central">CENTRAL</option>
+    </select>
+
+    <label>SUBURB</label>
+    <select id="suburb" name="suburb" required>
+      <option value="">--</option>
+    </select>
+
+    <label>REVIVE POINT</label>
+    <select id="revivePoint" name="revivePoint" required>
+      <option value="">--</option>
+    </select>
+
+    <label>MAINTAINED BY</label>
+    <input type="text" id="maintainer" readonly>
+
+    <label>NOTES</label>
+    <input type="text" name="notes">
+
+    <button type="submit">SEND IT</button>
+
+  </form>
+
+  <p id="status"></p>
+
+  <iframe name="hidden_iframe" style="display:none;"></iframe>
+
+  <!-- MUST load data FIRST -->
+  <script src="./revive-data.js"></script>
+
+  <!-- then logic -->
+  <script src="./script.js"></script>
+
+</body>
+</html>
+
+</body>
+</html>
