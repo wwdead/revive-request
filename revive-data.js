@@ -1,8 +1,8 @@
 const REVIVE_DATA = {
-  "Ketchelbank": [
+  "Roachtown": [
     {
-      name: "St. Matthias's Church 46,33",
-      maintainer: "Malton Zookeepers"
+      name: "Cemetery 56,33",
+      maintainer: "Local survivors"
     }
   ]
 };
