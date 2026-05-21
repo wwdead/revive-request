@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Revive Request</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
@@ -34,7 +37,7 @@
     </select>
 
     <label>REVIVE POINT</label>
-    <select id="revivePoint" name="revivePoint" required>
+    <select id="revivePoint" name="location" required>
       <option value="">--</option>
     </select>
 
@@ -50,16 +53,15 @@
 
   <p id="status"></p>
 
+  <!-- Hidden iframe for Apps Script POST -->
   <iframe name="hidden_iframe" style="display:none;"></iframe>
 
-  <!-- MUST load data FIRST -->
-  <script src="./revive-data.js"></script>
+  <!-- LOAD DATA FIRST -->
+  <script src="revive-data.js"></script>
 
-  <!-- then logic -->
-  <script src="./script.js"></script>
-
-</body>
-</html>
+  <!-- THEN LOAD APP LOGIC -->
+  <script src="script.js"></script>
 
 </body>
+
 </html>
