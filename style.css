@@ -12,7 +12,7 @@ form {
   margin: 150px auto;
   padding: 16px;
 
-  background: rgba(29, 52, 32, 0.93); /* more opaque */
+  background: rgba(76, 105, 82, 0.93); /* more opaque */
   border: 2px solid #00ff66;
   border-radius: 10px;
 
@@ -32,7 +32,7 @@ label {
 /* Inputs */
 input, select, textarea {
   width: 100%;
-  background: rgba(0,0,0,0.85);
+  background: rgba(255,255,255,0.85);
   color: #00ff66;
   border: 1px solid #00ff66;
   padding: 6px;
@@ -44,13 +44,6 @@ input, select, textarea {
   box-shadow: inset 0 0 6px rgba(0,255,100,0.3);
 }
 
-/* Focus glow */
-input:focus, select:focus, textarea:focus {
-  outline: none;
-  box-shadow: 
-    0 0 8px #00ff66,
-    inset 0 0 8px rgba(0,255,100,0.5);
-}
 
 /* Button */
 button {
@@ -69,14 +62,13 @@ button {
   letter-spacing: 2px;
   cursor: pointer;
 
-  box-shadow: 0 0 8px #00ff66;
   transition: all 0.2s ease;
 }
 
 button:hover {
   background: #00ff66;
   color: #001100;
-  box-shadow: 0 0 14px #00ff66;
+  
 }
 /* Status */
 #status {
