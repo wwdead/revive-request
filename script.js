@@ -1,29 +1,64 @@
-// ------------------------------
-  // SAFETY CHECK
-  // ------------------------------
-if (typeof REVIVE_DATA === "undefined") {
-  console.error("❌ REVIVE_DATA not loaded.");
-} else {
+const DATA_API =
+  "https://script.google.com/macros/s/AKfycbwkm0i_V4s8gykenzlUy8RS89uJnKI7Th1YdwKhVnRMVARD3bGVOyvMlUEMdA4tVTrH/exec";
 
-  console.log("✅ REVIVE_DATA loaded:", REVIVE_DATA);
+const REVIVE_API = DATA_API;
+
+let REVIVE_DATA = {};
+
+async function init() {
+
+  // ------------------------------
+  // LOAD REVIVE DATA
+  // ------------------------------
+  try {
+
+    const response =
+      await fetch(DATA_API);
+
+    REVIVE_DATA =
+      await response.json();
+
+    console.log(
+      "✅ REVIVE_DATA loaded:",
+      REVIVE_DATA
+    );
+
+  } catch (err) {
+
+    console.error(
+      "❌ Failed to load revive data:",
+      err
+    );
+
+    return;
+  }
 
   // ------------------------------
   // ELEMENTS
   // ------------------------------
-  const sectorEl = document.getElementById("sector");
-  const suburbEl = document.getElementById("suburb");
-  const reviveEl = document.getElementById("revivePoint");
-  const maintainerEl = document.getElementById("maintainer");
-  const formEl = document.getElementById("reviveForm");
-  const statusEl = document.getElementById("status");
+  const sectorEl =
+    document.getElementById("sector");
 
-  const REVIVE_API =
-    "https://script.google.com/macros/s/AKfycbwkm0i_V4s8gykenzlUy8RS89uJnKI7Th1YdwKhVnRMVARD3bGVOyvMlUEMdA4tVTrH/exec";
+  const suburbEl =
+    document.getElementById("suburb");
+
+  const reviveEl =
+    document.getElementById("revivePoint");
+
+  const maintainerEl =
+    document.getElementById("maintainer");
+
+  const formEl =
+    document.getElementById("reviveForm");
+
+  const statusEl =
+    document.getElementById("status");
 
   // ------------------------------
   // SECTOR → SUBURB MAP
   // ------------------------------
   const sectorSuburbs = {
+
     NW: [
       "Dakerstown","Jensentown","Quarlesbank","West Boundwood",
       "East Boundwood","Roywood","Judgewood","Gatcombeton",
@@ -72,131 +107,218 @@ if (typeof REVIVE_DATA === "undefined") {
   // ------------------------------
   // SECTOR → SUBURBS
   // ------------------------------
-  sectorEl.addEventListener("change", function () {
+  sectorEl.addEventListener(
+    "change",
+    function () {
 
-    const sector = this.value;
+      const sector =
+        this.value;
 
-    suburbEl.innerHTML = '<option value="">--</option>';
-    reviveEl.innerHTML = '<option value="">--</option>';
-    maintainerEl.value = "";
+      suburbEl.innerHTML =
+        '<option value="">--</option>';
 
-    if (!sectorSuburbs[sector]) return;
+      reviveEl.innerHTML =
+        '<option value="">--</option>';
 
-    sectorSuburbs[sector].forEach(sub => {
+      maintainerEl.value = "";
 
-      const opt = document.createElement("option");
+      if (!sectorSuburbs[sector]) return;
 
-      opt.value = sub;
-      opt.textContent = sub;
+      sectorSuburbs[sector]
+        .forEach(sub => {
 
-      suburbEl.appendChild(opt);
-    });
-  });
+          const opt =
+            document.createElement("option");
+
+          opt.value = sub;
+          opt.textContent = sub;
+
+          suburbEl.appendChild(opt);
+        });
+    }
+  );
 
   // ------------------------------
   // SUBURB → REVIVE POINTS
   // ------------------------------
-  suburbEl.addEventListener("change", function () {
+  suburbEl.addEventListener(
+    "change",
+    function () {
 
-    const suburb = this.value.trim();
+      const suburb =
+        this.value.trim();
 
-    reviveEl.innerHTML = '<option value="">--</option>';
-    maintainerEl.value = "";
+      reviveEl.innerHTML =
+        '<option value="">--</option>';
 
-    console.log("➡ Suburb selected:", suburb);
+      maintainerEl.value = "";
 
-    const points = REVIVE_DATA[suburb];
+      console.log(
+        "➡ Suburb selected:",
+        suburb
+      );
 
-    if (!points || !Array.isArray(points)) {
-      console.warn("❌ No revive data found:", suburb);
-      return;
+      const points =
+        REVIVE_DATA.data?.[suburb];
+
+      console.log(
+        "POINTS:",
+        points
+      );
+
+      if (
+        !points ||
+        !Array.isArray(points)
+      ) {
+
+        console.warn(
+          "❌ No revive data found:",
+          suburb
+        );
+
+        return;
+      }
+
+      points.forEach(point => {
+
+        const opt =
+          document.createElement("option");
+
+        opt.value =
+          point.name;
+
+        opt.textContent =
+          point.name;
+
+        reviveEl.appendChild(opt);
+      });
+
+      console.log(
+        "✅ Loaded revive points:",
+        points.length
+      );
     }
-
-    points.forEach(point => {
-
-      const opt = document.createElement("option");
-
-      opt.value = point.name;
-      opt.textContent = point.name;
-
-      reviveEl.appendChild(opt);
-    });
-
-    console.log("✅ Loaded revive points:", points.length);
-  });
+  );
 
   // ------------------------------
   // REVIVE POINT → MAINTAINER
   // ------------------------------
-  reviveEl.addEventListener("change", function () {
+  reviveEl.addEventListener(
+    "change",
+    function () {
 
-    const suburb = suburbEl.value.trim();
-    const point = this.value;
+      const suburb =
+        suburbEl.value.trim();
 
-    const match =
-      (REVIVE_DATA[suburb] || [])
-        .find(p => p.name === point);
+      const point =
+        this.value;
 
-    maintainerEl.value =
-      match?.maintainer || "Not maintained";
-  });
+      const match =
+        (REVIVE_DATA.data?.[suburb] || [])
+          .find(
+            p => p.name === point
+          );
+
+      maintainerEl.value =
+        match?.maintainer ||
+        "Not maintained";
+    }
+  );
 
   // ------------------------------
   // FORM SUBMIT
   // ------------------------------
-  formEl.addEventListener("submit", async function (e) {
+  formEl.addEventListener(
+    "submit",
+    async function (e) {
 
-    e.preventDefault();
-
-    statusEl.textContent = "Sending revive request...";
-
-    try {
-
-      const formData = new URLSearchParams();
-
-      formData.append("playerName", formEl.playerName.value);
-      formData.append("profileLink", formEl.profileLink.value);
-      formData.append("sector", sectorEl.value);
-      formData.append("suburb", suburbEl.value);
-      formData.append("location", reviveEl.value);
-      formData.append("notes", formEl.notes.value);
-
-      const response = await fetch(REVIVE_API, {
-        method: "POST",
-        body: formData
-      });
-
-      const result = await response.json();
-
-      console.log("✅ Server response:", result);
-
-      if (result.status === "OK") {
-
-        statusEl.textContent =
-          "✅ Revive request transmitted.";
-
-        formEl.reset();
-
-        suburbEl.innerHTML =
-          '<option value="">--</option>';
-
-        reviveEl.innerHTML =
-          '<option value="">--</option>';
-
-        maintainerEl.value = "";
-
-      } else {
-
-        statusEl.textContent =
-          "❌ Submission failed.";
-      }
-
-    } catch (err) {
-
-      console.error(err);
+      e.preventDefault();
 
       statusEl.textContent =
-        "❌ Connection error.";
+        "Sending revive request...";
+
+      try {
+
+        const formData =
+          new URLSearchParams();
+
+        formData.append(
+          "playerName",
+          formEl.playerName.value
+        );
+
+        formData.append(
+          "profileLink",
+          formEl.profileLink.value
+        );
+
+        formData.append(
+          "sector",
+          sectorEl.value
+        );
+
+        formData.append(
+          "suburb",
+          suburbEl.value
+        );
+
+        formData.append(
+          "location",
+          reviveEl.value
+        );
+
+        formData.append(
+          "notes",
+          formEl.notes.value
+        );
+
+        const response =
+          await fetch(
+            REVIVE_API,
+            {
+              method: "POST",
+              body: formData
+            }
+          );
+
+        const result =
+          await response.json();
+
+        console.log(
+          "✅ Server response:",
+          result
+        );
+
+        if (result.status === "OK") {
+
+          statusEl.textContent =
+            "✅ Revive request transmitted.";
+
+          formEl.reset();
+
+          suburbEl.innerHTML =
+            '<option value="">--</option>';
+
+          reviveEl.innerHTML =
+            '<option value="">--</option>';
+
+          maintainerEl.value = "";
+
+        } else {
+
+          statusEl.textContent =
+            "❌ Submission failed.";
+        }
+
+      } catch (err) {
+
+        console.error(err);
+
+        statusEl.textContent =
+          "❌ Connection error.";
+      }
     }
-  });
+  );
 }
+
+init();
