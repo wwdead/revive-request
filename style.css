@@ -29,8 +29,8 @@ label {
 /* Inputs */
 input, select, textarea {
   width: 100%;
-  background: rgba(255,255,255,0.85);
-  color: #00ff66;
+  background: rgba(0,0,0,0.85);
+  color: #ffffff;
   border: 1px solid #3b5742;
   padding: 6px;
   margin-top: 4px;
