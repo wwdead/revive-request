@@ -158,8 +158,8 @@ async function init() {
         suburb
       );
 
-      const points =
-        REVIVE_DATA.data?.[suburb];
+    const points =
+  REVIVE_DATA[suburb];
 
       console.log(
         "POINTS:",
@@ -214,7 +214,7 @@ async function init() {
         this.value;
 
       const match =
-        (REVIVE_DATA.data?.[suburb] || [])
+        (REVIVE_DATA[suburb] || [])
           .find(
             p => p.name === point
           );
