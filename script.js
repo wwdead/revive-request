@@ -18,7 +18,7 @@ if (typeof REVIVE_DATA === "undefined") {
   const statusEl = document.getElementById("status");
 
   const REVIVE_API =
-    "https://script.google.com/macros/s/AKfycbyIPqFT1EUhUZw9fciExVKRB37M1MA04S-VA6GqdClmSHQlSPX3i-l1lxyj75_45Pyo/exec";
+    "https://script.google.com/macros/s/AKfycbwkm0i_V4s8gykenzlUy8RS89uJnKI7Th1YdwKhVnRMVARD3bGVOyvMlUEMdA4tVTrH/exec";
 
   // ------------------------------
   // SECTOR → SUBURB MAP
